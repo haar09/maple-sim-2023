@@ -3,6 +3,7 @@ package org.ironmaple.simulation.seasonspecific.chargedup2023;
 import static edu.wpi.first.units.Units.*;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import org.dyn4j.geometry.Rectangle;
 import org.ironmaple.simulation.gamepieces.GamePieceOnFieldSimulation;
 
@@ -19,6 +20,8 @@ public class ChargedUpConeOnField extends GamePieceOnFieldSimulation {
             new GamePieceInfo("Cone", new Rectangle(0.203, 0.203), Meters.of(0.33), Kilograms.of(0.653), 8.0, 8.0, 0.1);
 
     public ChargedUpConeOnField(Pose2d initialPose) {
-        super(CHARGED_UP_CONE_INFO, initialPose);
+        // The cone model is base-anchored, so rest its base on the floor (z = 0) instead of centering it at
+        // height/2 (which makes it float).
+        super(CHARGED_UP_CONE_INFO, () -> 0.0, initialPose, new Translation2d());
     }
 }

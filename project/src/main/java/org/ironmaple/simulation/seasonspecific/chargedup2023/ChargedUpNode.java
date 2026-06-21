@@ -25,6 +25,8 @@ public class ChargedUpNode extends Goal {
     private static final int[] AUTO_POINTS_BY_ROW = {3, 4, 6};
     private static final int[] TELEOP_POINTS_BY_ROW = {2, 3, 5};
 
+    private static final double CUBE_HEIGHT_M = 0.241;
+
     public final int row;
     public final String type;
 
@@ -52,6 +54,9 @@ public class ChargedUpNode extends Goal {
 
     @Override
     public void draw(List<Pose3d> drawList) {
-        if (gamePieceCount > 0) drawList.add(new Pose3d(position, new Rotation3d()));
+        if (gamePieceCount <= 0) return;
+        // Cube model is center-anchored (raise by half its height); cone model is base-anchored (rest on surface).
+        double z = position.getZ() + (type.equals("Cube") ? CUBE_HEIGHT_M / 2.0 : 0.0);
+        drawList.add(new Pose3d(new Translation3d(position.getX(), position.getY(), z), new Rotation3d()));
     }
 }

@@ -48,12 +48,8 @@ public class ChargedUpConeOnFly extends GamePieceProjectile {
         if (!super.becomesGamePieceOnGroundAfterTouchGround) return;
         simulatedArena.addGamePiece(new GamePieceOnFieldSimulation(
                 ChargedUpConeOnField.CHARGED_UP_CONE_INFO,
-                () -> Math.max(
-                        ChargedUpConeOnField.CHARGED_UP_CONE_INFO
-                                        .gamePieceHeight()
-                                        .in(Meters)
-                                / 2,
-                        getPositionAtTime(super.launchedTimer.get()).getZ()),
+                // Cone model is base-anchored: rest its base on the ground (lower bound 0), not at height/2.
+                () -> Math.max(0.0, getPositionAtTime(super.launchedTimer.get()).getZ()),
                 new Pose2d(
                         getPositionAtTime(launchedTimer.get()).toTranslation2d(),
                         initialLaunchingVelocityMPS.getAngle()),
