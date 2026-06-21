@@ -1,8 +1,10 @@
 package org.ironmaple.simulation.seasonspecific.chargedup2023;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import java.util.List;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.utils.FieldMirroringUtils;
 
@@ -18,6 +20,9 @@ import org.ironmaple.utils.FieldMirroringUtils;
 public class Arena2023ChargedUp extends SimulatedArena {
     public static final double FIELD_LENGTH = 16.54175;
     public static final double FIELD_WIDTH = 8.0137;
+
+    public final ChargedUpGridSimulation blueGrid;
+    public final ChargedUpGridSimulation redGrid;
 
     /** The obstacles on the 2023 Charged Up competition field. */
     public static final class ChargedUpFieldObstaclesMap extends FieldMap {
@@ -121,6 +126,34 @@ public class Arena2023ChargedUp extends SimulatedArena {
      */
     public Arena2023ChargedUp(boolean chargeStationSolid) {
         super(new ChargedUpFieldObstaclesMap(chargeStationSolid));
+
+        blueGrid = new ChargedUpGridSimulation(this, true);
+        addCustomSimulation(blueGrid);
+        redGrid = new ChargedUpGridSimulation(this, false);
+        addCustomSimulation(redGrid);
+    }
+
+    @Override
+    public synchronized List<Pose3d> getGamePiecesPosesByType(String type) {
+        List<Pose3d> poses = super.getGamePiecesPosesByType(type);
+        blueGrid.draw(poses, type);
+        redGrid.draw(poses, type);
+        return poses;
+    }
+
+    @Override
+    public synchronized void clearGamePieces() {
+        super.clearGamePieces();
+        blueGrid.clearGrid();
+        redGrid.clearGrid();
+    }
+
+    @Override
+    public void simulationSubTick(int tickNum) {
+        super.simulationSubTick(tickNum);
+        // LINK counts are current-state, not accumulated -> use the set-style replace method.
+        replaceValueInMatchBreakDown(true, "BlueLinks", blueGrid.countLinks());
+        replaceValueInMatchBreakDown(false, "RedLinks", redGrid.countLinks());
     }
 
     private static final double STAGING_X = 7.067931;
