@@ -321,24 +321,14 @@ org.ironmaple.simulation/
 │   └── SimMotorConfigs.java
 │
 ├── seasonspecific/                         # Season-specific implementations
-│   ├── crescendo2024/
-│   │   ├── Arena2024Crescendo.java
-│   │   ├── CrescendoNoteOnField.java
-│   │   ├── NoteOnFly.java
-│   │   ├── CrescendoHumanPlayerSimulation.java
-│   │   ├── CrescendoAmp.java
-│   │   └── CrescendoSpeaker.java
-│   ├── reefscape2025/
-│   │   ├── Arena2025Reefscape.java
-│   │   ├── ReefscapeAlgaeOnField.java
-│   │   ├── ReefscapeAlgaeOnFly.java
-│   │   ├── ReefscapeCoralOnField.java
-│   │   ├── ReefscapeCoralOnFly.java
-│   │   ├── ReefscapeCoralAlgaeStack.java
-│   │   ├── ReefscapeReefSimulation.java
-│   │   ├── ReefscapeReefBranch.java
-│   │   ├── ReefscapeBargeSimulation.java
-│   │   └── ReefscapeProcessorSimulation.java
+│   ├── chargedup2023/                       # current default season
+│   │   ├── Arena2023ChargedUp.java
+│   │   ├── ChargedUpConeOnField.java
+│   │   ├── ChargedUpCubeOnField.java
+│   │   ├── ChargedUpConeOnFly.java
+│   │   ├── ChargedUpCubeOnFly.java
+│   │   ├── ChargedUpNode.java
+│   │   └── ChargedUpGridSimulation.java
 │   └── evergreen/
 │       └── ArenaEvergreen.java
 │
@@ -389,7 +379,7 @@ org.ironmaple.simulation/
 - `gamePieces` - Set of game pieces (both on field and projectiles)
 - `intakeSimulations` - List of registered intakes
 - `customSimulations` - List of custom Simulatable objects
-- Default instance: `Arena2025Reefscape` (current season)
+- Default instance: `Arena2023ChargedUp` (current season)
 
 **Nested Classes**:
 - `Simulatable` - Interface for custom simulations with `simulationSubTick(int)` method
@@ -655,59 +645,30 @@ org.ironmaple.simulation/
 
 ### Season-Specific Classes
 
-#### Crescendo 2024
-**Package**: `org.ironmaple.simulation.seasonspecific.crescendo2024`
+> **Note:** As of the 2023 Charged Up port, the `crescendo2024`, `reefscape2025`, and `rebuilt2026` packages were
+> removed. Only `chargedup2023` (default) and `evergreen` remain.
 
-**`Arena2024Crescendo`**
-- Extends `SimulatedArena`
-- Full 2024 field with obstacles
-- Note placement logic
-- Speaker and Amp simulation
+#### Charged Up 2023
+**Package**: `org.ironmaple.simulation.seasonspecific.chargedup2023`
 
-**`CrescendoNoteOnField`**
-- Extends `GamePieceOnFieldSimulation`
-- Type: "Note"
-- Orange foam ring game piece
+**`Arena2023ChargedUp`**
+- Extends `SimulatedArena`; default arena
+- Inner `ChargedUpFieldObstaclesMap` (perimeter, grid bays + non-passable dividers, charge station, barriers, double substations)
+- Charge station is a static toggleable collider (no 3D balance simulation; a dedicated 3D layer is planned)
 
-**`NoteOnFly`**
-- Extends `GamePieceProjectile`
-- Helper methods: `asSpeakerShotNote(Runnable)`, `asAmpShotNote(Runnable)`
-
-**`CrescendoHumanPlayerSimulation`**
-- Simulates human player auto-spawning notes
-
-**`CrescendoAmp`** / **`CrescendoSpeaker`**
-- Field element simulations
-
----
-
-#### Reefscape 2025
-**Package**: `org.ironmaple.simulation.seasonspecific.reefscape2025`
-
-**`Arena2025Reefscape`**
-- Extends `SimulatedArena`
-- Default arena for 2025 season
-- Coral and Algae placement
-- Reef, Barge, Processor simulations
-
-**`ReefscapeCoralOnField`** / **`ReefscapeAlgaeOnField`**
+**`ChargedUpConeOnField`** / **`ChargedUpCubeOnField`**
 - Extend `GamePieceOnFieldSimulation`
-- Types: "Coral", "Algae"
+- Types: "Cone", "Cube" (square footprints)
 
-**`ReefscapeCoralOnFly`** / **`ReefscapeAlgaeOnFly`**
+**`ChargedUpConeOnFly`** / **`ChargedUpCubeOnFly`**
 - Extend `GamePieceProjectile`
-- Projectile versions
+- Projectile versions; the scoring mechanism
 
-**`ReefscapeCoralAlgaeStack`**
-- Simulates stacked coral/algae
-- Can be intaken by coral or algae intakes
+**`ChargedUpNode`**
+- Extends `Goal`; one per scoring location, height-aware
 
-**`ReefscapeReefSimulation`**
-- Simulates reef structure
-- Contains branches (`ReefscapeReefBranch`)
-
-**`ReefscapeBargeSimulation`** / **`ReefscapeProcessorSimulation`**
-- Field element simulations
+**`ChargedUpGridSimulation`**
+- One per alliance; owns the 27 nodes, draws/publishes, detects LINKs
 
 ---
 

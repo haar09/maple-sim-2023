@@ -50,3 +50,7 @@ bin/
 /javadocs/**
 /.idea/*
 
+
+# local reference assets (not for repo)
+2023FRCGameManual.pdf
+charged-up-field-1100.webp
