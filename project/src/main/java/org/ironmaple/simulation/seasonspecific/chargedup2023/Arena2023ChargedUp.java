@@ -123,6 +123,28 @@ public class Arena2023ChargedUp extends SimulatedArena {
         super(new ChargedUpFieldObstaclesMap(chargeStationSolid));
     }
 
+    private static final double STAGING_X = 7.067931;
+    private static final double[] STAGING_Y = {0.919226, 2.138426, 3.357626, 4.576826};
+    // Per Y-index: true = cube, false = cone  (cube, cone, cone, cube)
+    private static final boolean[] STAGING_IS_CUBE = {true, false, false, true};
+
     @Override
-    public void placeGamePiecesOnField() {}
+    public void placeGamePiecesOnField() {
+        for (int i = 0; i < STAGING_Y.length; i++) {
+            Translation2d bluePos = new Translation2d(STAGING_X, STAGING_Y[i]);
+            Translation2d redPos = FieldMirroringUtils.flip(bluePos);
+            if (STAGING_IS_CUBE[i]) {
+                addGamePiece(new ChargedUpCubeOnField(new Pose2d(bluePos, new Rotation2d())));
+                addGamePiece(new ChargedUpCubeOnField(new Pose2d(redPos, new Rotation2d())));
+            } else {
+                addGamePiece(new ChargedUpConeOnField(new Pose2d(bluePos, new Rotation2d())));
+                addGamePiece(new ChargedUpConeOnField(new Pose2d(redPos, new Rotation2d())));
+            }
+        }
+
+        setupValueForMatchBreakdown("BlueLinks");
+        setupValueForMatchBreakdown("RedLinks");
+        setupValueForMatchBreakdown("Auto/ConesScoredInAuto");
+        setupValueForMatchBreakdown("Auto/CubesScoredInAuto");
+    }
 }
