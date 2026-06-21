@@ -16,8 +16,10 @@ public class FieldMirroringUtils {
         return isSidePresentedAsRed() ? flip(rotationAtBlueSide) : rotationAtBlueSide;
     }
 
+    // 2023 Charged Up is a mirror-symmetric field (mirror across the vertical centerline), NOT 180-degree
+    // rotational like 2024+. Red alliance = (fieldLength - x, y) with rotation reflected about the Y axis.
     public static Rotation2d flip(Rotation2d rotation) {
-        return rotation.plus(Rotation2d.k180deg);
+        return new Rotation2d(-rotation.getCos(), rotation.getSin());
     }
 
     public static Translation2d toCurrentAllianceTranslation(Translation2d translationAtBlueSide) {
@@ -25,13 +27,12 @@ public class FieldMirroringUtils {
     }
 
     public static Translation2d flip(Translation2d translation) {
-        return new Translation2d(FIELD_WIDTH - translation.getX(), FIELD_HEIGHT - translation.getY());
+        return new Translation2d(FIELD_WIDTH - translation.getX(), translation.getY());
     }
 
     public static Pose3d flip(Pose3d toFlip) {
         return new Pose3d(
-                new Translation3d(FIELD_WIDTH - toFlip.getX(), FIELD_HEIGHT - toFlip.getY(), toFlip.getZ()),
-                toFlip.getRotation());
+                new Translation3d(FIELD_WIDTH - toFlip.getX(), toFlip.getY(), toFlip.getZ()), toFlip.getRotation());
     }
 
     public static Translation3d toCurrentAllianceTranslation(Translation3d translation3dAtBlueSide) {
