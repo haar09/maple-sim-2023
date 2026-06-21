@@ -37,10 +37,10 @@ public class Arena2023ChargedUp extends SimulatedArena {
         private static final double CHARGE_STATION_SIZE_X = 1.938275;
         private static final double CHARGE_STATION_SIZE_Y = 2.479044;
 
-        private static final double BARRIER_CENTER_X = 1.117600;
-        private static final double BARRIER_CENTER_Y = 5.499100;
-        private static final double BARRIER_SIZE_X = 2.235200;
-        private static final double BARRIER_SIZE_Y = 0.406400;
+        private static final double BARRIER_CENTER_X = 1.68;
+        private static final double BARRIER_CENTER_Y = 5.494;
+        private static final double BARRIER_SIZE_X = 3.364;
+        private static final double BARRIER_SIZE_Y = 0.10;
 
         private static final double DOUBLE_SUBSTATION_CENTER_X = 16.363950;
         private static final double DOUBLE_SUBSTATION_CENTER_Y = 6.749796;
