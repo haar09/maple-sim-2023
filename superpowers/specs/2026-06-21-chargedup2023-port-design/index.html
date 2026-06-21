@@ -1,0 +1,1285 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://shenzhen-robotics-alliance.github.io/maple-sim/superpowers/specs/2026-06-21-chargedup2023-port-design/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../media/team_logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2023 Charged Up Port — Design Spec - MapleSim</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+  
+  
+  
+  
+  <style>:root{--md-annotation-icon:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M22%2012a10%2010%200%200%201-10%2010A10%2010%200%200%201%202%2012%2010%2010%200%200%201%2012%202a10%2010%200%200%201%2010%2010M6%2013h8l-3.5%203.5%201.42%201.42L17.84%2012l-5.92-5.92L10.5%207.5%2014%2011H6z%22/%3E%3C/svg%3E');}</style>
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2023-charged-up-port-design-spec" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="MapleSim" class="md-header__button md-logo" aria-label="MapleSim" data-md-component="logo">
+      
+  <img src="../../../media/team_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MapleSim
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2023 Charged Up Port — Design Spec
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="red" data-md-color-accent="pink"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="pink"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="MapleSim" class="md-nav__button md-logo" aria-label="MapleSim" data-md-component="logo">
+      
+  <img src="../../../media/team_logo.png" alt="logo">
+
+    </a>
+    MapleSim
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../simulation-details/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulation Details
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../installing-maple-sim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../using-the-simulated-arena/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Using the Simulated Arena
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Swerve Simulation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Swerve Simulation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../swerve-simulation-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../swerve-sim-easy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simple Swerve Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../swerve-sim-hardware-abstraction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hardware Abstraction Sim
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../simulating-intake/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulating Intake
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../simulating-opponent-robots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulating Opponent Robots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../simulating-projectiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Simulating Projectiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rebuilt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rebuilt Simulation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../CONTRIBUTION/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../release-notes/version0.3.0-beta2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Release Notes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-source-of-truth-for-geometry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Source of truth for geometry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#packages-removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages removed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packages-kept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packages kept
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-core-wiring-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Core wiring changes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-field-obstacle-map-chargedupfieldobstaclesmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Field obstacle map (ChargedUpFieldObstaclesMap)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Field obstacle map (ChargedUpFieldObstaclesMap)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-perimeter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Perimeter
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-grid-enterable-bays-with-non-passable-dividers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Grid — enterable bays with non-passable dividers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-charge-station" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Charge station
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-barrier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Barrier
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-double-substation-protrusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Double substation protrusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-intentionally-non-collider-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Intentionally non-collider elements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-game-pieces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Game pieces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Game pieces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-on-field-bodies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 On-field bodies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-projectiles-scoring-mechanism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Projectiles (scoring mechanism)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-placement-placegamepiecesonfield" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Placement (placeGamePiecesOnField)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-grid-scoring-height-aware-goal-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Grid scoring (height-aware, Goal-based)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Grid scoring (height-aware, Goal-based)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-node-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Node model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-grid-orchestrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Grid orchestrator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-scoring-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Scoring &amp; LINKs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-build-phases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Build phases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-known-limitations-future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Known limitations / future work
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2023-charged-up-port-design-spec">2023 Charged Up Port — Design Spec</h1>
+<p><strong>Date:</strong> 2026-06-21
+<strong>Status:</strong> Approved for planning
+<strong>Goal:</strong> Convert maple-sim from the 2026 (Rebuilt) default to the <strong>2023 FRC game, CHARGED UP</strong>, including field boundaries, obstacles, the charge station, grids (as enterable zones with non-passable dividers), and the cone/cube game pieces, with height-aware grid scoring.</p>
+<hr />
+<h2 id="1-scope">1. Scope</h2>
+<p>In scope:</p>
+<ul>
+<li>New season package <code>chargedup2023</code> mirroring the structure of existing season packages.</li>
+<li>Full physical field: perimeter, grids (enterable bays + dividers), charge stations, barriers, double-substation protrusions.</li>
+<li>Game pieces: CONE and CUBE, both as on-field bodies and as in-flight projectiles.</li>
+<li>Height-aware grid scoring using the existing <code>Goal</code> abstraction (same mechanism as 2025 Reefscape), including LINK detection and a published match breakdown.</li>
+<li>Replace the existing season packages and retarget the default arena to 2023.</li>
+</ul>
+<p>Out of scope (explicitly):</p>
+<ul>
+<li>Charge-station balance / dock / engage logic. The charge station is a 3D tilting ramp that the 2D engine cannot simulate. A <strong>separate 3D layer will be developed later</strong>; this port leaves a clean extension point for it.</li>
+<li>Cooperation/sustainability bonuses beyond what naturally falls out of LINK counting (can be a follow-up).</li>
+<li>Single-substation and double-substation human-player <em>throwing</em> simulation (substations are treated as piece-feed/spawn points, not active throwers).</li>
+</ul>
+<hr />
+<h2 id="2-source-of-truth-for-geometry">2. Source of truth for geometry</h2>
+<p>Primary geometry source: <strong>FRC 6328 (Mechanical Advantage) <code>FieldConstants.java</code></strong> for 2023, supplied by the user. It is machine-readable and exact (inches → meters). Values below use the standard (non-WPI) field variant, which matches the field size in the WPILib bundled <code>2023-chargedup.json</code>.</p>
+<p>Supporting references:</p>
+<ul>
+<li><a href="https://firstfrc.blob.core.windows.net/frc2023/Manual/Sections/2023FRCGameManual-05.pdf">2023 FRC Game Manual — Section 5 ARENA</a></li>
+<li><a href="https://firstfrc.blob.core.windows.net/frc2023/FieldAssets/2023LayoutMarkingDiagram.pdf">2023 Layout &amp; Marking Diagram</a> (image-based CAD; visual cross-check only)</li>
+<li><a href="https://www.chiefdelphi.com/t/2023-chargedup-json/422689">WPILib <code>2023-chargedup.json</code> field size</a></li>
+<li><a href="https://docs.revrobotics.com/frc-kickoff-concepts/charged-up-2023/game-elements">REV Game Elements — Charged Up</a></li>
+<li>Local PDF: <code>2023FRCGameManual.pdf</code>, field image <code>charged-up-field-1100.webp</code>.</li>
+</ul>
+<p><strong>Coordinate system:</strong> origin at the rightmost point of the BLUE alliance wall; X increases into the field (away from blue wall), Y increases to the left (NWU). Blue elements live at low X. Red elements are the 180° rotational flip: <code>(x, y) -&gt; (FIELD_LENGTH - x, FIELD_WIDTH - y)</code>.</p>
+<p><strong>Field dimensions:</strong> length (X) = 651.25 in = <strong>16.542 m</strong>, width (Y) = 315.5 in = <strong>8.014 m</strong>.</p>
+<hr />
+<h2 id="3-architecture">3. Architecture</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>org.ironmaple.simulation.seasonspecific.chargedup2023/
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── Arena2023ChargedUp.java          # extends SimulatedArena; inner ChargedUpFieldObstaclesMap (FieldMap)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── ChargedUpConeOnField.java        # extends GamePieceOnFieldSimulation, type &quot;Cone&quot;
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├── ChargedUpCubeOnField.java        # extends GamePieceOnFieldSimulation, type &quot;Cube&quot;
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├── ChargedUpConeOnFly.java          # extends GamePieceProjectile (scoring projectile)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├── ChargedUpCubeOnFly.java          # extends GamePieceProjectile (scoring projectile)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>├── ChargedUpGridSimulation.java     # implements SimulatedArena.Simulatable; one per alliance; owns nodes
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>└── ChargedUpNode.java               # extends Goal; one per scoring location (27 per alliance)
+</span></code></pre></div>
+<p>No changes to the core physics engine beyond the default-instance swap and the intake stack-handling removal. The <code>Goal</code>, <code>GamePieceProjectile</code>, <code>GamePieceOnFieldSimulation</code>, and <code>FieldMap</code> abstractions are reused as-is.</p>
+<h3 id="packages-removed">Packages removed</h3>
+<ul>
+<li><code>seasonspecific/crescendo2024/</code> (all files)</li>
+<li><code>seasonspecific/reefscape2025/</code> (all files)</li>
+<li><code>seasonspecific/rebuilt2026/</code> (all files)</li>
+</ul>
+<h3 id="packages-kept">Packages kept</h3>
+<ul>
+<li><code>seasonspecific/evergreen/</code> — generic, non-season test arena. Removing it risks breaking tests/templates.</li>
+</ul>
+<hr />
+<h2 id="4-core-wiring-changes">4. Core wiring changes</h2>
+<ol>
+<li><strong><code>SimulatedArena.java</code></strong></li>
+<li>Line ~111 (<code>getInstance</code>): default instance <code>new Arena2026Rebuilt()</code> → <code>new Arena2023ChargedUp()</code>.</li>
+<li>Line ~130 (<code>overrideInstance</code>): the stray <code>if (instance != null) instance = new Arena2026Rebuilt();</code> references a deleted class; remove that line (it is a latent bug — it overwrites the new instance with a default before the real assignment).</li>
+<li><strong><code>IntakeSimulation.java</code></strong></li>
+<li>Remove the <code>import ...reefscape2025.ReefscapeCoralAlgaeStack;</code> (line ~24).</li>
+<li>Remove the two <code>instanceof ReefscapeCoralAlgaeStack</code> branches (lines ~320-323). No stack concept exists in 2023, so collisions fall through to the normal game-piece path.</li>
+<li><strong><code>FieldMirroringUtils.java</code></strong></li>
+<li><code>FIELD_WIDTH</code> (length, X) <code>17.548</code> → <code>16.542</code>.</li>
+<li><code>FIELD_HEIGHT</code> (Y) <code>8.052</code> → <code>8.014</code>.</li>
+<li><code>flip()</code> stays 180° rotational (already correct for the 2023 rotationally-symmetric field).</li>
+<li><strong><code>CLAUDE.md</code></strong> — update the season section to reflect <code>chargedup2023</code> as current and the removed packages.</li>
+</ol>
+<hr />
+<h2 id="5-field-obstacle-map-chargedupfieldobstaclesmap">5. Field obstacle map (<code>ChargedUpFieldObstaclesMap</code>)</h2>
+<p>All values below are the blue-side layout in meters. Red obstacles are produced by the 180° flip. The map is built from <code>FieldMap</code> primitives: <code>addBorderLine(a, b)</code> (segment wall), <code>addRectangularObstacle(w, h, pose)</code>, <code>addCustomObstacle(convex, pose)</code>.</p>
+<h3 id="51-perimeter">5.1 Perimeter</h3>
+<p>Four border lines forming the field rectangle: corners (0,0), (16.542,0), (16.542,8.014), (0,8.014). No angled corners.</p>
+<h3 id="52-grid-enterable-bays-with-non-passable-dividers">5.2 Grid — enterable bays with non-passable dividers</h3>
+<p>The grid is <strong>not</strong> a solid block. It is a set of 9 column-bays a robot can nose into from the field side, separated by non-passable dividers running the full grid depth.</p>
+<ul>
+<li>Grid depth: X from 0 (alliance wall) to <code>outerX</code> = 54.25 in = <strong>1.378 m</strong>.</li>
+<li>9 column centers, Y = 20.19 + 22·i in (i = 0..8):
+  0.513, 1.071, 1.630, 2.189, 2.748, 3.307, 3.865, 4.424, 4.983 m.</li>
+<li><strong>Back wall:</strong> border line along X ≈ 0 across the grid Y span (or rely on the alliance-wall perimeter line; back wall added explicitly to keep the bays closed at the rear).</li>
+<li><strong>8 dividers:</strong> non-passable segments at the midpoints between adjacent column centers, each running X[0, 1.378]. Divider thickness ≈ 0.05–0.13 m (model as thin rectangles so they are true colliders, not zero-width segments, to reliably block a bumper). Bay boundaries (Y): 0.792, 1.351, 1.909, 2.468, 3.027, 3.586, 4.145, 4.704 m.</li>
+<li>Bays open toward the field; the two outer bays are bounded by the guardrail (perimeter) and the barrier respectively.</li>
+</ul>
+<h3 id="53-charge-station">5.3 Charge station</h3>
+<ul>
+<li>Rectangle: X[2.919, 4.858] (length 1.939 m), Y[1.508, 3.988] (width 2.480 m), center (3.889, 2.748).</li>
+<li>Toggleable via constructor flag, <strong>default solid</strong> (impassable), following the <code>rebuilt2026</code> pattern.</li>
+<li>Added via a dedicated isolated method <code>addChargeStationCollider(boolean solid)</code> so the future 3D charge-station layer can override or replace it without touching the rest of the map.</li>
+</ul>
+<h3 id="54-barrier">5.4 Barrier</h3>
+<ul>
+<li>One per alliance, separating the community from the opposing alliance's loading zone.</li>
+<li>Rectangle: X[0, 2.236] (length 7 ft 4 in = 2.236 m), centered on Y ≈ 5.499 (loading-zone <code>rightY</code>), width 0.41 m.</li>
+</ul>
+<h3 id="55-double-substation-protrusion">5.5 Double substation protrusion</h3>
+<ul>
+<li>One per alliance, attached to and in-line with the opponent's alliance wall, extending 14 in = 0.356 m into the field.</li>
+<li>Blue's double substation sits at the red end; the red double substation (the one physically present at the blue end) is the flip of the blue definition.</li>
+<li>Rectangle: length (X) 0.356 m, width (Y) ≈ 2.44 m (8 ft), center Y = <code>fieldWidth - 49.76 in</code> = 6.750 m (blue-frame value, flipped for placement at the appropriate end).</li>
+</ul>
+<h3 id="56-intentionally-non-collider-elements">5.6 Intentionally non-collider elements</h3>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cable bump / cable protector (<code>cableBumpCorners</code>, ~3.8 m, 7 in wide, 19–22 mm tall)</td>
+<td>Robots roll over it; below any meaningful 2D collider.</td>
+</tr>
+<tr>
+<td>Single substation</td>
+<td>Field-facing wall recessed 3 in behind the guardrail; no protrusion. Used only as a piece-feed point.</td>
+</tr>
+<tr>
+<td>Vision targets, AprilTags, reflective tape, LED strings, charge-station lighting</td>
+<td>Non-physical.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-game-pieces">6. Game pieces</h2>
+<h3 id="61-on-field-bodies">6.1 On-field bodies</h3>
+<p>Both modeled with <strong>square</strong> bases (per design decision), as <code>GamePieceOnFieldSimulation</code> subclasses with a <code>GamePieceInfo</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Type string</th>
+<th>Footprint (square)</th>
+<th>Height</th>
+<th>Mass</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cone</td>
+<td><code>"Cone"</code></td>
+<td>~0.20 m (8 in base)</td>
+<td>~0.33 m</td>
+<td>0.653 kg</td>
+<td>yellow marker cone</td>
+</tr>
+<tr>
+<td>Cube</td>
+<td><code>"Cube"</code></td>
+<td>~0.24 m</td>
+<td>~0.24 m</td>
+<td>0.071 kg</td>
+<td>purple inflated cube</td>
+</tr>
+</tbody>
+</table>
+<p>Damping and restitution follow the conventions used by existing on-field pieces (tune for plausible sliding/settling). The cube's lighter mass and softness can be approximated with higher linear damping.</p>
+<h3 id="62-projectiles-scoring-mechanism">6.2 Projectiles (scoring mechanism)</h3>
+<p><code>ChargedUpConeOnFly</code> and <code>ChargedUpCubeOnFly</code> extend <code>GamePieceProjectile</code>. Robot code ejects a piece toward a node as a projectile (same usage pattern as <code>ReefscapeCoralOnFly</code>). The projectile's 3D pose is what the grid <code>Goal</code>s test against. Provide convenience constructors mirroring the existing OnFly classes (launch position on robot, robot pose, chassis speeds, launch height, launch velocity, launch angle).</p>
+<h3 id="63-placement-placegamepiecesonfield">6.3 Placement (<code>placeGamePiecesOnField</code>)</h3>
+<p>Per alliance, 4 staged pieces at the staging marks:</p>
+<ul>
+<li>X = <code>fieldLength/2 - 47.36 in</code> = <strong>7.068 m</strong>.</li>
+<li>Y = {0.919, 2.138, 3.357, 4.576} m (firstY 36.19 in, separation 48 in).</li>
+<li>Pattern (Y ascending): cube, cone, cone, cube.</li>
+</ul>
+<p>Mirrored for the red alliance via <code>FieldMirroringUtils.flip</code>.</p>
+<hr />
+<h2 id="7-grid-scoring-height-aware-goal-based">7. Grid scoring (height-aware, <code>Goal</code>-based)</h2>
+<h3 id="71-node-model">7.1 Node model</h3>
+<p><code>ChargedUpNode extends Goal</code>. One node per scoring location: 9 columns × 3 rows = <strong>27 nodes per alliance</strong>, 54 total.</p>
+<p>For each column i (0..8), <code>isCube = (i == 1 || i == 4 || i == 7)</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Row</th>
+<th>Type</th>
+<th>Node X (m)</th>
+<th>Node Z (m)</th>
+<th><code>allowGrounded</code></th>
+<th>Capacity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hybrid (low)</td>
+<td>accepts Cone or Cube</td>
+<td>1.197</td>
+<td>0.0</td>
+<td>true</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Mid</td>
+<td>cube columns: Cube; else Cone</td>
+<td>0.800</td>
+<td>cube 0.521 / cone 0.864</td>
+<td>false</td>
+<td>1</td>
+</tr>
+<tr>
+<td>High</td>
+<td>cube columns: Cube; else Cone</td>
+<td>0.368</td>
+<td>cube 0.826 / cone 1.168</td>
+<td>false</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The <code>Goal</code> 3D box (<code>xyBox</code> + <code>minZ</code>/<code>maxZ</code>) is positioned at each node's <code>(x, y, z)</code>. A piece scores when its <code>getPose3d()</code> falls inside the box (and passes type + rotation + grounded checks), exactly as <code>ReefscapeReefBranch</code> does.</li>
+<li><strong>Type filtering:</strong> cone nodes filter <code>"Cone"</code>, cube nodes filter <code>"Cube"</code>. Hybrid nodes accept either type — implemented as two co-located <code>Goal</code>s (one Cone, one Cube) sharing the bay zone, or a node subclass that checks both types. (Decision deferred to the plan; two co-located goals is the lower-risk option since it reuses <code>Goal</code> unchanged.)</li>
+<li><strong>Rotation:</strong> start with <code>anyRotation()</code> for all nodes. Leave a tunable hook (<code>setNeededAngle</code>) so cones-must-be-upright can be enabled later without API change.</li>
+</ul>
+<h3 id="72-grid-orchestrator">7.2 Grid orchestrator</h3>
+<p><code>ChargedUpGridSimulation implements SimulatedArena.Simulatable</code>, one per alliance, owns the node array. Responsibilities mirror <code>ReefscapeReefSimulation</code>:</p>
+<ul>
+<li><code>simulationSubTick</code> → tick all nodes.</li>
+<li><code>draw(List&lt;Pose3d&gt;)</code> → render scored pieces for AdvantageScope.</li>
+<li>Publish node poses to NetworkTables under <code>/SmartDashboard/MapleSim/Goals/{BlueGrid|RedGrid}</code>.</li>
+<li>Expose scored-state accessors (e.g. a per-row, per-column count array) analogous to <code>getBranches()</code>.</li>
+</ul>
+<h3 id="73-scoring-links">7.3 Scoring &amp; LINKs</h3>
+<ul>
+<li>Points (2023 manual, per scored game piece): low/hybrid = 3 (auto) / 2 (teleop); mid = 4 (auto) / 3 (teleop); high = 6 (auto) / 5 (teleop). Applied in each node's <code>addPoints()</code> via <code>arena.addToScore</code> and <code>arena.addValueToMatchBreakdown</code>, with the auto-vs-teleop branch on <code>DriverStation.isAutonomous()</code> (same pattern as <code>ReefscapeReefBranch</code>).</li>
+<li><strong>LINK:</strong> 3 adjacent scored nodes in the same row. Detected in the grid orchestrator from the scored-state array each sub-tick; published to the match breakdown (e.g. <code>BlueLinks</code>, <code>RedLinks</code>).</li>
+<li>Reset hooks (<code>clearGrid</code>) called from <code>placeGamePiecesOnField</code> / field reset.</li>
+</ul>
+<hr />
+<h2 id="8-build-phases">8. Build phases</h2>
+<p>Each phase compiles green and is independently testable.</p>
+<ol>
+<li><strong>Foundation:</strong> delete the three season packages; retarget the <code>SimulatedArena</code> default and fix the stray <code>overrideInstance</code> line; remove the <code>ReefscapeCoralAlgaeStack</code> handling from <code>IntakeSimulation</code>; update <code>FieldMirroringUtils</code> field dimensions; add a minimal stub <code>Arena2023ChargedUp</code> (empty obstacle map) so the project builds.</li>
+<li><strong>Obstacle map:</strong> implement <code>ChargedUpFieldObstaclesMap</code> — perimeter, grid back wall + 8 dividers, charge station (toggleable), barrier, double-substation protrusion. Verify robot collisions (enters bays, bumps dividers/charge station).</li>
+<li><strong>Game pieces:</strong> <code>ChargedUpConeOnField</code>, <code>ChargedUpCubeOnField</code>, <code>ChargedUpConeOnFly</code>, <code>ChargedUpCubeOnFly</code>; implement <code>placeGamePiecesOnField</code> staging; verify intake collection and pose publishing (<code>"Cone"</code> / <code>"Cube"</code>).</li>
+<li><strong>Scoring:</strong> <code>ChargedUpNode</code>, <code>ChargedUpGridSimulation</code>; node placement at real 3D heights; LINK detection; match-breakdown publishing; verify scoring via projectiles and grounded hybrid pieces.</li>
+</ol>
+<hr />
+<h2 id="9-known-limitations-future-work">9. Known limitations / future work</h2>
+<ul>
+<li><strong>Charge station</strong> is a static collider, not a balanceable ramp. A dedicated 3D layer is planned; <code>addChargeStationCollider</code> is the seam it will hook into.</li>
+<li>Grid scoring approximates placement with the projectile/3D-pose mechanism (same compromise as 2025). Real-arm placement is not physically simulated.</li>
+<li>Cone upright-orientation scoring is disabled by default (tunable hook left in place).</li>
+<li>Cooperation/sustainability bonus logic beyond LINK counting is deferred.</li>
+<li>WPI vs non-WPI field micro-variations (~cm, plus AprilTag layout differences) are not parameterized; the standard non-WPI dims are used to match WPILib's bundled field size.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.tooltips", "content.code.copy", "content.code.select", "content.code.annotate", "content.code.select.title", "toc.follow", "content.tabs.link", "search.share", "search.highlight", "search.suggest", "announce.dismiss", "navigation.instant", "navigation.footer"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
