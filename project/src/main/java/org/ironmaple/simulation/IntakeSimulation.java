@@ -21,7 +21,6 @@ import org.dyn4j.world.ContactCollisionData;
 import org.dyn4j.world.listener.ContactListener;
 import org.ironmaple.simulation.drivesims.AbstractDriveTrainSimulation;
 import org.ironmaple.simulation.gamepieces.GamePieceOnFieldSimulation;
-import org.ironmaple.simulation.seasonspecific.reefscape2025.ReefscapeCoralAlgaeStack;
 
 /**
  *
@@ -314,15 +313,6 @@ public class IntakeSimulation extends BodyFixture {
             else if (collisionBody2 instanceof GamePieceOnFieldSimulation gamePiece
                     && Objects.equals(gamePiece.type, targetedGamePieceType)
                     && fixture1 == IntakeSimulation.this) flagGamePieceForRemoval(gamePiece);
-
-            boolean coralOrAlgaeIntake = "Coral".equals(IntakeSimulation.this.targetedGamePieceType)
-                    || "Algae".equals(IntakeSimulation.this.targetedGamePieceType);
-            if (collisionBody1 instanceof ReefscapeCoralAlgaeStack stack
-                    && coralOrAlgaeIntake
-                    && fixture2 == IntakeSimulation.this) flagGamePieceForRemoval(stack);
-            else if (collisionBody2 instanceof ReefscapeCoralAlgaeStack stack
-                    && coralOrAlgaeIntake
-                    && fixture1 == IntakeSimulation.this) flagGamePieceForRemoval(stack);
         }
 
         private void flagGamePieceForRemoval(GamePieceOnFieldSimulation gamePiece) {

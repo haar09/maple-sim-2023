@@ -30,7 +30,6 @@ import org.ironmaple.simulation.gamepieces.GamePiece;
 import org.ironmaple.simulation.gamepieces.GamePieceOnFieldSimulation;
 import org.ironmaple.simulation.gamepieces.GamePieceProjectile;
 import org.ironmaple.simulation.motorsims.SimulatedBattery;
-import org.ironmaple.simulation.seasonspecific.rebuilt2026.Arena2026Rebuilt;
 import org.ironmaple.utils.mathutils.GeometryConvertor;
 
 /**
@@ -108,7 +107,7 @@ public abstract class SimulatedArena {
             throw new IllegalStateException(
                     "MapleSim is running on a real robot! (If you would actually want that, set SimulatedArena.ALLOW_CREATION_ON_REAL_ROBOT to true).");
 
-        if (instance == null) instance = new org.ironmaple.simulation.seasonspecific.rebuilt2026.Arena2026Rebuilt();
+        if (instance == null) instance = new org.ironmaple.simulation.seasonspecific.chargedup2023.Arena2023ChargedUp();
 
         return instance;
     }
@@ -127,7 +126,6 @@ public abstract class SimulatedArena {
      * @param newInstance the new simulation arena instance to override the current one
      */
     public static void overrideInstance(SimulatedArena newInstance) {
-        if (instance != null) instance = new Arena2026Rebuilt();
         instance = newInstance;
     }
 
@@ -644,8 +642,8 @@ public abstract class SimulatedArena {
      *
      * <ul>
      *   <li>The type is determined in the constructor of {@link GamePieceOnFieldSimulation}.
-     *   <li>For example, {@link org.ironmaple.simulation.seasonspecific.crescendo2024.CrescendoNoteOnField} has the
-     *       type "Note".
+     *   <li>For example, {@link org.ironmaple.simulation.seasonspecific.chargedup2023.ChargedUpConeOnField} has the
+     *       type "Cone".
      * </ul>
      *
      * @param type the type of game piece, as determined by the constructor of {@link GamePieceOnFieldSimulation}
