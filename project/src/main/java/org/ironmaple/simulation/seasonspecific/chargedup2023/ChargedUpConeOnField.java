@@ -16,7 +16,7 @@ import org.ironmaple.simulation.gamepieces.GamePieceOnFieldSimulation;
  */
 public class ChargedUpConeOnField extends GamePieceOnFieldSimulation {
     public static final GamePieceInfo CHARGED_UP_CONE_INFO =
-            new GamePieceInfo("Cone", new Rectangle(0.203, 0.203), Meters.of(0.33), Kilograms.of(0.653), 2.0, 4.0, 0.2);
+            new GamePieceInfo("Cone", new Rectangle(0.203, 0.203), Meters.of(0.33), Kilograms.of(0.653), 8.0, 8.0, 0.1);
 
     public ChargedUpConeOnField(Pose2d initialPose) {
         super(CHARGED_UP_CONE_INFO, initialPose);
