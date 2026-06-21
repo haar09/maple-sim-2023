@@ -28,16 +28,17 @@ With this advanced level of simulation, the possibilities are endless. You can:
 
 **And the best part? You can achieve all of this without needing a real robot on hand.**
 
+> **Note:** This is a personal fork of [maple-sim](https://github.com/Shenzhen-Robotics-Alliance/maple-sim) adapted to simulate the **2023 FRC game (Charged Up)** on the **2026 WPILib**. For the original library and its documentation, see the [upstream project](https://github.com/Shenzhen-Robotics-Alliance/maple-sim).
+
 ## Getting Started
 
-Getting started with one of our [template projects](https://shenzhen-robotics-alliance.github.io/maple-sim/#getting-started-with-templates).
+Install this fork into your WPILib robot project as an online vendor library using the following Vendor URL:
 
-Check the [online documentation](https://shenzhen-robotics-alliance.github.io/maple-sim/) and [Javadocs](https://shenzhen-robotics-alliance.github.io/maple-sim/javadocs/).
+```
+https://raw.githubusercontent.com/haar09/maple-sim-2023/main/vendordep/maplesim2023.json
+```
 
-Vendor URL:
-```
-https://shenzhen-robotics-alliance.github.io/maple-sim/vendordep/maple-sim.json
-```
+In WPILib VSCode: open the command palette → **WPILib: Manage Vendor Libraries** → **Install new libraries (online)** → paste the URL above. (The vendordep must be present on the `main` branch for this URL to resolve.)
 <br>
 
 > 🙏  Big thanks to [@GrahamSH-LLK](https://www.chiefdelphi.com/u/nstrike/summary) for all the help in setting up the online documentation.

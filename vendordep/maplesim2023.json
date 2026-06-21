@@ -1,0 +1,30 @@
+{
+    "fileName": "maplesim2023.json",
+    "name": "MapleSim2023",
+    "version": "2023.0.0",
+    "frcYear": "2026",
+    "uuid": "917b3668-c51e-4c61-aaac-bc16bd10c176",
+    "mavenUrls": [
+        "https://raw.githubusercontent.com/haar09/maple-sim-2023/main/vendordep/repos/releases",
+        "https://repo1.maven.org/maven2"
+    ],
+    "jsonUrl": "https://raw.githubusercontent.com/haar09/maple-sim-2023/main/vendordep/maplesim2023.json",
+    "javaDependencies": [
+        {
+            "groupId": "org.haar09",
+            "artifactId": "maplesim2023-java",
+            "version": "2023.0.0"
+        },
+        {
+            "groupId": "org.dyn4j",
+            "artifactId": "dyn4j",
+            "version": "5.0.2"
+        }
+    ],
+    "jniDependencies": [
+
+    ],
+    "cppDependencies": [
+
+    ]
+}
