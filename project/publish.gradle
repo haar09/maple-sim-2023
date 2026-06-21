@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 
 ext.licenseFile = files("$rootDir/LICENSE.txt")
 
-def pubVersion = '0.4.0-beta-obstacles-fix'
+def pubVersion = '2023.0.0'
 
 def outputsFolder = file("$buildDir/outputs")
 
@@ -41,15 +41,15 @@ ext.addTaskToCopyAllOutputs = { task ->
     copyAllOutputs.from task.archiveFile
 }
 
-def artifactGroupId = 'org.ironmaple'
-def baseArtifactId = 'maplesim'
-def driverZipBaseName = "_GROUP_org_ironmaple_ID_${baseArtifactId}-driver_CLS"
-def zipBaseName = "_GROUP_org_ironmaple_ID_${baseArtifactId}-cpp_CLS"
-def javaBaseName = "_GROUP_org_ironmaple_ID_${baseArtifactId}-java_CLS"
+def artifactGroupId = 'org.haar09'
+def baseArtifactId = 'maplesim2023'
+def driverZipBaseName = "_GROUP_org_haar09_ID_${baseArtifactId}-driver_CLS"
+def zipBaseName = "_GROUP_org_haar09_ID_${baseArtifactId}-cpp_CLS"
+def javaBaseName = "_GROUP_org_haar09_ID_${baseArtifactId}-java_CLS"
 
 copy {
-    from "maple-sim.json"
-    into "$rootDir/../docs/vendordep"
+    from "maplesim2023.json"
+    into "$rootDir/../vendordep"
     expand(version: "$pubVersion")
 }
 
@@ -136,7 +136,7 @@ artifacts {
 
 libraryBuild.dependsOn build
 
-def releasesRepoUrl = "$rootDir/../docs/vendordep/repos/releases"
+def releasesRepoUrl = "$rootDir/../vendordep/repos/releases"
 
 publishing {
     repositories {
