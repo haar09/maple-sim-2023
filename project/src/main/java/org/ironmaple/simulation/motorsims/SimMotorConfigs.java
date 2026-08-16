@@ -1,10 +1,10 @@
 package org.ironmaple.simulation.motorsims;
 
-import static edu.wpi.first.units.Units.*;
-import static edu.wpi.first.units.Units.Volts;
+import static org.wpilib.units.Units.*;
+import static org.wpilib.units.Units.Volts;
 
-import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.units.measure.*;
+import org.wpilib.math.system.DCMotor;
+import org.wpilib.units.measure.*;
 
 /**
  *
@@ -87,13 +87,13 @@ public final class SimMotorConfigs {
      *
      * <p>This method uses the {@link DCMotor} model to find the angular velocity for a given current and voltage.
      *
-     * @see DCMotor#getSpeed(double, double) for the underlying implementation.
+     * @see DCMotor#getVelocity(double, double) for the underlying implementation.
      * @param current the current flowing through the motor.
      * @param voltage the voltage applied to the motor.
      * @return the final angular velocity of the mechanism.
      */
     public AngularVelocity calculateMechanismVelocity(Current current, Voltage voltage) {
-        return RadiansPerSecond.of(motor.getSpeed(motor.getTorque(current.in(Amps)), voltage.in(Volts)))
+        return RadiansPerSecond.of(motor.getVelocity(motor.getTorque(current.in(Amps)), voltage.in(Volts)))
                 .div(gearing);
     }
 
@@ -163,23 +163,23 @@ public final class SimMotorConfigs {
     }
 
     public AngularVelocity freeSpinMechanismVelocity() {
-        return RadiansPerSecond.of(motor.freeSpeedRadPerSec / gearing);
+        return RadiansPerSecond.of(motor.freeSpeed / gearing);
     }
 
     public Current freeSpinCurrent() {
-        return Amps.of(motor.freeCurrentAmps);
+        return Amps.of(motor.freeCurrent);
     }
 
     public Current stallCurrent() {
-        return Amps.of(motor.stallCurrentAmps);
+        return Amps.of(motor.stallCurrent);
     }
 
     public Torque stallTorque() {
-        return NewtonMeters.of(motor.stallTorqueNewtonMeters);
+        return NewtonMeters.of(motor.stallTorque);
     }
 
     public Voltage nominalVoltage() {
-        return Volts.of(motor.nominalVoltageVolts);
+        return Volts.of(motor.nominalVoltage);
     }
 
     @Override

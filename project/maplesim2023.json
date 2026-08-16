@@ -2,7 +2,7 @@
     "fileName": "maplesim2023.json",
     "name": "MapleSim2023",
     "version": "${version}",
-    "frcYear": "2026",
+    "frcYear": "2027",
     "uuid": "917b3668-c51e-4c61-aaac-bc16bd10c176",
     "mavenUrls": [
         "https://raw.githubusercontent.com/haar09/maple-sim-2023/main/vendordep/repos/releases",

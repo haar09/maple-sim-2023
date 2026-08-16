@@ -9,9 +9,18 @@
 - **Documentation**: https://shenzhen-robotics-alliance.github.io/maple-sim/
 - **JavaDocs**: https://shenzhen-robotics-alliance.github.io/maple-sim/javadocs/
 - **Physics Engine**: dyn4j 5.0.2 (2D rigid-body dynamics)
-- **Java Version**: 17 (source & target compatibility)
-- **WPILib Version**: 2025.3.2
-- **Gradle Version**: 8.11
+- **Java Version**: 25 (toolchain, auto-provisioned via foojay resolver)
+- **WPILib Version**: 2027.0.0-alpha-6 (`org.wpilib.*` coordinates, repo `https://frcmaven.wpi.edu/artifactory/release-2027`)
+- **Gradle Version**: 9.4.1
+
+### WPILib 2027 migration notes (applied to this codebase)
+- Java packages renamed `edu.wpi.first.*` → `org.wpilib.*`; wpilibj split into topical packages: `org.wpilib.driverstation` (DriverStation → `RobotState`/`MatchState`/`DriverStationErrors`, top-level `Alliance` with `RED`/`BLUE`), `org.wpilib.framework` (RobotBase, TimedRobot — `DEFAULT_PERIOD`), `org.wpilib.system` (Timer — `getTimestamp()`), `org.wpilib.simulation`, `org.wpilib.smartdashboard`
+- `ChassisSpeeds` → `ChassisVelocities` (fields `vx`/`vy`/`omega`; static `fromFieldRelativeSpeeds`/`fromRobotRelativeSpeeds`/`discretize` became instance `toRobotRelative`/`toFieldRelative`/`discretize`)
+- `SwerveModuleState` → `SwerveModuleVelocity` (field `velocity`; `optimize`/`cosineScale` return a new object instead of mutating)
+- `SwerveDriveKinematics`: `toSwerveModuleVelocities`/`toChassisVelocities`/`desaturateWheelVelocities`
+- `DCMotor` moved to `org.wpilib.math.system`, unit-suffix fields dropped (`freeSpeed`, `stallTorque`, `Kv`, `Kt`, `R`, ...), `getSpeed` → `getVelocity`
+- `MathUtil.clamp` removed → `java.lang.Math.clamp`; `Matrix`/`VecBuilder` → `org.wpilib.math.linalg`; `MathUtil`/`Units`/`Nat` → `org.wpilib.math.util`; `Rotation3d.minus` → `relativeTo`
+- Build is pure Java now: cpp/google-test/NativeUtils/GradleJni/GradleVsCode/GradleRIO plugins and `config.gradle` removed (repo has no native sources)
 
 ---
 
@@ -35,15 +44,9 @@ maple-sim/
 ```
 
 ### Gradle Plugins Used
-- `java` - Java compilation
-- `cpp` - C++ support (minimal usage)
-- `google-test` - Testing framework
-- `com.diffplug.spotless` 7.0.0.BETA4 - Code formatting
-- `edu.wpi.first.wpilib.repositories.WPILibRepositoriesPlugin` 2025.0 - WPILib repos
-- `edu.wpi.first.NativeUtils` 2025.9.0 - Native utilities
-- `edu.wpi.first.GradleJni` 1.1.0 - JNI support
-- `edu.wpi.first.GradleVsCode` 2.1.0 - VSCode integration
-- `edu.wpi.first.GradleRIO` 2025.3.2 - FRC robot support
+- `java` - Java compilation (toolchain Java 25)
+- `com.diffplug.spotless` 8.9.0 - Code formatting
+- `org.gradle.toolchains.foojay-resolver-convention` 1.0.0 (settings.gradle) - JDK auto-provisioning
 - `maven-publish` - Publishing to Maven
 
 ### Dependencies
@@ -51,21 +54,13 @@ maple-sim/
 **Core Physics**:
 - `org.dyn4j:dyn4j:5.0.2` - Physics engine
 
-**WPILib Dependencies** (version 2025.3.2):
-- `cscore-java` - Camera support
-- `cameraserver-java` - Camera server
+**WPILib Dependencies** (version 2027.0.0-alpha-6, group `org.wpilib.<module>`, from `https://frcmaven.wpi.edu/artifactory/release-2027`):
 - `ntcore-java` - NetworkTables
 - `wpilibj-java` - Core WPILib
 - `wpiutil-java` - Utilities
 - `wpimath-java` - Math library
 - `wpiunits-java` - Units library
-- `wpilibNewCommands-java` - Command-based framework
 - `hal-java` - Hardware abstraction layer
-
-**Additional Libraries**:
-- `org.ejml:ejml-simple:0.43.1` - Matrix operations
-- `com.fasterxml.jackson.*:2.15.2` - JSON processing
-- `edu.wpi.first.thirdparty.frc2024.opencv:opencv-java:4.8.0-2` - OpenCV
 
 ### Build Tasks
 
@@ -105,7 +100,7 @@ maple-sim/
 **Maven Coordinates**:
 - **Group ID**: `org.ironmaple`
 - **Artifact ID**: `maplesim-java`
-- **Version**: Defined in `project/publish.gradle` (currently `0.3.14-test`)
+- **Version**: Defined in `project/publish.gradle` (currently `2027.0.0-alpha-1`)
 
 **Publishing Location**:
 - Local test repo: `docs/vendordep/repos/releases`

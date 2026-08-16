@@ -1,22 +1,7 @@
 package org.ironmaple.simulation;
 
-import static edu.wpi.first.units.Units.Seconds;
+import static org.wpilib.units.Units.Seconds;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.networktables.BooleanPublisher;
-import edu.wpi.first.networktables.BooleanSubscriber;
-import edu.wpi.first.networktables.DoublePublisher;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.units.measure.Time;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.util.*;
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
@@ -31,6 +16,21 @@ import org.ironmaple.simulation.gamepieces.GamePieceOnFieldSimulation;
 import org.ironmaple.simulation.gamepieces.GamePieceProjectile;
 import org.ironmaple.simulation.motorsims.SimulatedBattery;
 import org.ironmaple.utils.mathutils.GeometryConvertor;
+import org.wpilib.driverstation.Alliance;
+import org.wpilib.driverstation.RobotState;
+import org.wpilib.framework.RobotBase;
+import org.wpilib.framework.TimedRobot;
+import org.wpilib.math.geometry.Pose2d;
+import org.wpilib.math.geometry.Pose3d;
+import org.wpilib.math.geometry.Translation2d;
+import org.wpilib.networktables.BooleanPublisher;
+import org.wpilib.networktables.BooleanSubscriber;
+import org.wpilib.networktables.DoublePublisher;
+import org.wpilib.networktables.NetworkTable;
+import org.wpilib.networktables.NetworkTableInstance;
+import org.wpilib.smartdashboard.SmartDashboard;
+import org.wpilib.system.Timer;
+import org.wpilib.units.measure.Time;
 
 /**
  *
@@ -136,7 +136,7 @@ public abstract class SimulatedArena {
         return SIMULATION_SUB_TICKS_IN_1_PERIOD;
     }
     /** The period length of each sub-tick, in seconds. */
-    private static Time SIMULATION_DT = Seconds.of(TimedRobot.kDefaultPeriod / SIMULATION_SUB_TICKS_IN_1_PERIOD);
+    private static Time SIMULATION_DT = Seconds.of(TimedRobot.DEFAULT_PERIOD / SIMULATION_SUB_TICKS_IN_1_PERIOD);
 
     public static Time getSimulationDt() {
         return SIMULATION_DT;
@@ -163,7 +163,7 @@ public abstract class SimulatedArena {
      * @return The score of the specified team.
      */
     public int getScore(Alliance allianceColor) {
-        return getScore(allianceColor == Alliance.Blue);
+        return getScore(allianceColor == Alliance.BLUE);
     }
 
     /**
@@ -177,7 +177,7 @@ public abstract class SimulatedArena {
     public void addToScore(boolean isBlue, int toAdd) {
         if (isBlue) blueScore += toAdd;
         else redScore += toAdd;
-        addValueToMatchBreakdown(isBlue, DriverStation.isAutonomous() ? "Auto/AutoScore" : "TeleopScore", toAdd);
+        addValueToMatchBreakdown(isBlue, RobotState.isAutonomous() ? "Auto/AutoScore" : "TeleopScore", toAdd);
     }
 
     /**

@@ -1,12 +1,12 @@
 package org.ironmaple.simulation.seasonspecific.chargedup2023;
 
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Translation3d;
-import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.wpilibj.DriverStation;
 import java.util.List;
 import org.ironmaple.simulation.Goal;
+import org.wpilib.driverstation.RobotState;
+import org.wpilib.math.geometry.Pose3d;
+import org.wpilib.math.geometry.Rotation3d;
+import org.wpilib.math.geometry.Translation3d;
+import org.wpilib.units.measure.Distance;
 
 /**
  *
@@ -46,7 +46,7 @@ public class ChargedUpNode extends Goal {
 
     @Override
     protected void addPoints() {
-        boolean isAuto = DriverStation.isAutonomous();
+        boolean isAuto = RobotState.isAutonomous();
         int points = isAuto ? AUTO_POINTS_BY_ROW[row] : TELEOP_POINTS_BY_ROW[row];
         arena.addToScore(isBlue, points);
         if (isAuto) arena.addValueToMatchBreakdown(isBlue, "Auto/" + type + "sScoredInAuto", 1);

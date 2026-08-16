@@ -1,12 +1,12 @@
 package org.ironmaple.simulation.seasonspecific.chargedup2023;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import java.util.List;
 import org.ironmaple.simulation.SimulatedArena;
 import org.ironmaple.utils.FieldMirroringUtils;
+import org.wpilib.math.geometry.Pose2d;
+import org.wpilib.math.geometry.Pose3d;
+import org.wpilib.math.geometry.Rotation2d;
+import org.wpilib.math.geometry.Translation2d;
 
 /**
  *

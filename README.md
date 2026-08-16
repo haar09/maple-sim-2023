@@ -28,7 +28,7 @@ With this advanced level of simulation, the possibilities are endless. You can:
 
 **And the best part? You can achieve all of this without needing a real robot on hand.**
 
-> **Note:** This is a personal fork of [maple-sim](https://github.com/Shenzhen-Robotics-Alliance/maple-sim) adapted to simulate the **2023 FRC game (Charged Up)** on the **2026 WPILib**. For the original library and its documentation, see the [upstream project](https://github.com/Shenzhen-Robotics-Alliance/maple-sim).
+> **Note:** This is a personal fork of [maple-sim](https://github.com/Shenzhen-Robotics-Alliance/maple-sim) adapted to simulate the **2023 FRC game (Charged Up)** on the **2027 WPILib (alpha)**. For the original library and its documentation, see the [upstream project](https://github.com/Shenzhen-Robotics-Alliance/maple-sim).
 
 ## Getting Started
 

@@ -1,8 +1,8 @@
 package org.ironmaple.utils.mathutils;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import java.util.Random;
+import org.wpilib.math.geometry.Rotation2d;
+import org.wpilib.math.geometry.Translation2d;
 
 public class MapleCommonMath {
     private static final Random random = new Random();

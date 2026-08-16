@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 
 ext.licenseFile = files("$rootDir/LICENSE.txt")
 
-def pubVersion = '2023.0.0'
+def pubVersion = '2027.0.0-alpha-1'
 
 def outputsFolder = file("$buildDir/outputs")
 
@@ -43,56 +43,12 @@ ext.addTaskToCopyAllOutputs = { task ->
 
 def artifactGroupId = 'org.haar09'
 def baseArtifactId = 'maplesim2023'
-def driverZipBaseName = "_GROUP_org_haar09_ID_${baseArtifactId}-driver_CLS"
-def zipBaseName = "_GROUP_org_haar09_ID_${baseArtifactId}-cpp_CLS"
 def javaBaseName = "_GROUP_org_haar09_ID_${baseArtifactId}-java_CLS"
 
 copy {
     from "maplesim2023.json"
     into "$rootDir/../vendordep"
     expand(version: "$pubVersion")
-}
-
-task cppHeadersZip(type: Zip) {
-    destinationDirectory = outputsFolder
-    archiveBaseName = zipBaseName
-    archiveClassifier = "headers"
-
-    from(licenseFile) {
-        into '/'
-    }
-
-    from('src/main/native/include') {
-        into '/'
-    }
-}
-
-task cppSourceZip(type: Zip) {
-    destinationDirectory = outputsFolder
-    archiveBaseName = zipBaseName
-    archiveClassifier = "sources"
-
-    from(licenseFile) {
-        into '/'
-    }
-
-    from('src/main/native/cpp') {
-        into '/'
-    }
-}
-
-task cppDriverHeadersZip(type: Zip) {
-    destinationDirectory = outputsFolder
-    archiveBaseName = driverZipBaseName
-    archiveClassifier = "headers"
-
-    from(licenseFile) {
-        into '/'
-    }
-
-    from('src/main/driver/include') {
-        into '/'
-    }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -139,6 +95,17 @@ libraryBuild.dependsOn build
 def releasesRepoUrl = "$rootDir/../vendordep/repos/releases"
 
 publishing {
+    publications {
+        java(MavenPublication) {
+            artifact jar
+            artifact sourcesJar
+            artifact javadocJar
+
+            artifactId = "${baseArtifactId}-java"
+            groupId artifactGroupId
+            version pubVersion
+        }
+    }
     repositories {
         maven {
             url = releasesRepoUrl
@@ -149,7 +116,6 @@ publishing {
 task cleanReleaseRepo(type: Delete) {
     delete releasesRepoUrl
 }
-
 
 publish.dependsOn outputJar
 publish.dependsOn outputSourcesJar
@@ -163,23 +129,3 @@ copyAllOutputs.dependsOn outputJavadocJar
 addTaskToCopyAllOutputs(outputJar)
 addTaskToCopyAllOutputs(outputSourcesJar)
 addTaskToCopyAllOutputs(outputJavadocJar)
-
-model {
-    publishing {
-        def taskList = createComponentZipTasks($.components, ['Vendor'], zipBaseName, Zip, project, includeStandardZipFormat)
-
-        def driverTaskList = createComponentZipTasks($.components, ['VendorDriver'], driverZipBaseName, Zip, project, includeStandardZipFormat)
-
-        publications {
-            java(MavenPublication) {
-                artifact jar
-                artifact sourcesJar
-                artifact javadocJar
-
-                artifactId = "${baseArtifactId}-java"
-                groupId artifactGroupId
-                version pubVersion
-            }
-        }
-    }
-}
