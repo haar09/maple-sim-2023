@@ -6,6 +6,7 @@ import org.wpilib.driverstation.MatchState;
 import org.wpilib.math.geometry.Pose2d;
 import org.wpilib.math.geometry.Pose3d;
 import org.wpilib.math.geometry.Rotation2d;
+import org.wpilib.math.geometry.Rotation3d;
 import org.wpilib.math.geometry.Translation2d;
 import org.wpilib.math.geometry.Translation3d;
 
@@ -31,9 +32,16 @@ public class FieldMirroringUtils {
         return new Translation2d(FIELD_WIDTH - translation.getX(), translation.getY());
     }
 
+    // Ported from upstream 3bf85bd ("Fixed red hub recycling of fuel"): flip(Pose3d) must also flip the
+    // rotation. Adapted from 180-degree rotational symmetry to 2023's mirror symmetry: yaw is reflected
+    // about the Y axis (theta -> pi - theta), roll is negated, pitch is unchanged.
     public static Pose3d flip(Pose3d toFlip) {
         return new Pose3d(
-                new Translation3d(FIELD_WIDTH - toFlip.getX(), toFlip.getY(), toFlip.getZ()), toFlip.getRotation());
+                new Translation3d(FIELD_WIDTH - toFlip.getX(), toFlip.getY(), toFlip.getZ()),
+                new Rotation3d(
+                        -toFlip.getRotation().getX(),
+                        toFlip.getRotation().getY(),
+                        Math.PI - toFlip.getRotation().getZ()));
     }
 
     public static Translation3d toCurrentAllianceTranslation(Translation3d translation3dAtBlueSide) {

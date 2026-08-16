@@ -1,7 +1,7 @@
 {
     "fileName": "maplesim2023.json",
     "name": "MapleSim2023",
-    "version": "2027.0.0-alpha-1",
+    "version": "2027.0.0-alpha-2",
     "frcYear": "2027",
     "uuid": "917b3668-c51e-4c61-aaac-bc16bd10c176",
     "mavenUrls": [
@@ -13,7 +13,7 @@
         {
             "groupId": "org.haar09",
             "artifactId": "maplesim2023-java",
-            "version": "2027.0.0-alpha-1"
+            "version": "2027.0.0-alpha-2"
         },
         {
             "groupId": "org.dyn4j",
